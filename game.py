@@ -3,7 +3,6 @@
 
 # In[6]:
 
-
 import pygame
 from pygame.draw import *
 from random import randint
