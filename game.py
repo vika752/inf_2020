@@ -204,8 +204,9 @@ while not finished:
                     pictures.append(Pictures(screen, width, length))                    
 
                     # writing number of points of a players in file                   
-file = open("out.txt", "a")
-file.write('Name:' + name + ': ' + str(Score) + '\n')
+file = open("out.txt", "w")
+file.write('Name:' + name + ': ' + str(Score) + '\a')
+file.close()
     
 pygame.quit()
 
