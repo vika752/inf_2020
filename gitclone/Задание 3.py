@@ -1,62 +1,89 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
-# З А Д А Н И Е   3
+# З А Д А Н И Е    3
 
 import pygame
 from pygame.draw import *
 
 pygame.init()
 FPS = 30
-screen = pygame.display.set_mode((380, 250))
-rect(screen, (128,128, 228), (0,0,380,250))
+x = 380
+y = 250
+r = 1
+screen = pygame.display.set_mode((x, y))
+rect(screen, (128,128, 228), (0, 0, x, y))
 
-                   #FIRST
-#blouse
-circle(screen, (150, 120, 45), (120, 270), 60)
-circle(screen, (150, 120, 45), (60, 250), 20)
-circle(screen, (150, 120, 45), (180, 250), 20)
-#head
-circle(screen, (209, 159, 113), (120, 170), 50)
-#eyes
-circle(screen, (113, 209, 124), (100, 160), 10)
-circle(screen, (113, 209, 124), (140, 160), 10)
-circle(screen, (0, 0, 0), (100, 160), 3)
-circle(screen, (0, 0, 0), (140, 160), 3)
-#hair
-polygon(screen, (0,255,255), ([(120,110),(125,120),(115,120)]))
-polygon(screen, (0,255,255), ([(130,115),(125,120),(115,120)]))
-polygon(screen, (0,255,255), ([(110,115),(125,120),(115,120)]))
-#nose
-polygon(screen, (0,255,255), ([(120,160),(125,170),(115,170)]))
-#mouth
-polygon(screen, (250, 25, 25), ([(120,190),(110,180),(130,180)]))
-                  
-                  #SECOND
-#blouse
-circle(screen, (100, 100, 100), (280, 270), 60)
-circle(screen, (100, 100, 100), (340, 250), 20)
-circle(screen, (100, 100, 100), (220, 250), 20)
-#head
-circle(screen, (209, 159, 113), (280, 170), 50)
-#eyes
-circle(screen, (113, 137, 209), (260, 160), 10)
-circle(screen, (113, 137, 209), (300, 160), 10)
-circle(screen, (0, 0, 0), (260, 160), 3)
-circle(screen, (0, 0, 0), (300, 160), 3)
-#hair
-circle(screen, (0, 0, 0), (260, 118), 8)
-circle(screen, (0, 0, 0), (270, 118), 8)
-circle(screen, (0, 0, 0), (280, 118), 8)
-circle(screen, (0, 0, 0), (290, 118), 8)
-#nose
-polygon(screen, (0,255,255), ([(280,160),(285,170),(275,170)]))
-#mouth
-polygon(screen, (250, 25, 25), ([(280,190),(290,180),(270,180)]))
+BROWN = (150, 120, 45) 
+GREY = (100, 100, 100) 
+HEAD = (209, 159, 113)
+BLUE = (0,255,255)
+GREEN = (113, 209, 124)
+RED = (250, 25, 25)
+DARKBLUE = (113, 137, 209)
+BLACK = (0, 0, 0)
+                 
 
+colour = [BROWN, GREY, HEAD, BLUE, GREEN, RED, DARKBLUE, BLACK]
+
+def blouse (colour, x, y, r):
+    circle(screen, colour[0], (x/3.167, y/0.923), r*60)
+    circle(screen, colour[0], (x/6.333+340, y/1), r*20)
+    circle(screen, colour[0], (x/2.111+340, y/1), r*20)
+    
+def nose (colour, x, y):
+    polygon(screen, colour[3], ([(x/3.167, y/1.563),(x/3.04, y/1.471),(x/3.304,y/1.471)]))
+       
+def mouth (colour, x, y):
+    polygon(screen, colour[5], ([(x/3.167, y/1.316),(x/3.455, y/1.389),(x/2.923, y/1.389)]))
+           
+        
+def eyes(colour, x, y, r):
+    circle(screen, colour[4], (x/3.8, y/1.563), r*10)
+    circle(screen, colour[4], (x/2.714, y/1.563), r*10)
+    circle(screen, colour[7] , (x/3.8, y/1.563), r*3)
+    circle(screen, colour[7], (x/2.714, y/1.563), r*3)
+                
+def hair1(colour, x, y):
+    polygon(screen, colour[3], ([(x/3.167,y/2.273),(x/3.04, y/2.083),(x/3.304, y/2.083)]))
+    polygon(screen, colour[3], ([(x/2.923, y/2.174),(x/3.04, y/2.083),(x/3.304, y/2.083)]))
+    polygon(screen, colour[3], ([(x/3.455, y/2.174),(x/3.04, y/2),(x/3.304, y/2.083)]))
+    
+def hair2(colour, x, y, r):
+    circle(screen, colour[7], (x/1.462, y/2.119), r*8)
+    circle(screen, colour[7], (x/1.407, y/2.119), r*8)
+    circle(screen, colour[7], (x/1.357, y/2.119), r*8)
+    circle(screen, colour[7], (x/1.31, y/2.119), r*8)
+    
+
+def head (colour, x, y, r, a):
+    circle(screen, colour[2], (x/3.167, y/1.471), r*50)
+    nose(colour, x, y)
+    mouth (colour, x, y)
+    eyes(colour, x, y, r)
+    
+    if a == 1:  # colour hair
+        hair1(colour, x, y)  
+    else:
+        hair2(colour, x-420, y, r)
+        
+        
+                        # F I R S T   P E O P L E
+  
+blouse(colour, x, y, 1)
+head(colour, x, y, 1, 1)
+                      
+                        # S E C O N D  P E O P L E
+    
+colour = [GREY, BROWN, HEAD, BLUE, DARKBLUE, RED, GREEN, BLACK] 
+
+blouse(colour, x+340, y, 1)
+head(colour, x+340, y, 1, 2)
+       
+    
 #phrase
 rect(screen, (255, 255, 255), (40, 80, 5, 200))
 rect(screen, (255, 255, 255), (340, 80, 5, 200))
@@ -108,20 +135,4 @@ while not finished:
             
 
 pygame.quit()
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# 
-
-# In[ ]:
-
-
-
 
